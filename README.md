@@ -36,8 +36,7 @@ This tool is designed to be a "Zero-Configuration" exam—simply open the HTML f
 **Created by:** DevOps Eng KULDEEP  
 **Email:** [kuldeephimachal83@gmail.com](mailto:kuldeephimachal83@gmail.com)  
 **GitHub Profile:** [github.com/developer-kuldeep](https://github.com/developer-kuldeep)  
-**LinkedIn:** [Add your LinkedIn Link here]
-
+**LinkedIn:** [linkedin.com/in/kuldeep-engineer/](https://www.linkedin.com/in/kuldeep-engineer/)
 ---
 
 ### 🏷️ SEO Keywords
