@@ -11,178 +11,338 @@
         
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
         .watermark { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg); font-size: 5rem; font-weight: 900; color: rgba(15, 23, 42, 0.03); z-index: -1; pointer-events: none; user-select: none; }
+        
+        /* Custom Scrollbar for better UI */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 10px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
     </style>
 </head>
-<body class="min-h-screen relative flex flex-col justify-between">
+<body class="min-h-screen relative flex flex-col justify-between selection:bg-indigo-500/20">
 
+    <!-- Watermark -->
     <div class="watermark">kuldeephimachal83@gmail.com</div>
 
     <!-- Navigation -->
-    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-            <h1 class="font-bold text-slate-900">DevOps Grand Mix Assessment</h1>
-            <div id="timer" class="font-mono font-bold bg-slate-900 text-white px-4 py-1.5 rounded-lg text-sm">60:00</div>
+    <nav class="bg-white border-b border-slate-200 sticky top-0 z-50 shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-3">
+                <div class="bg-gradient-to-tr from-indigo-600 to-blue-500 p-2.5 rounded-xl text-white shadow-md font-bold">
+                    🚀
+                </div>
+                <div>
+                    <h1 class="text-sm font-extrabold tracking-tight text-slate-900">DevOps Academy</h1>
+                    <p class="text-[10px] text-indigo-600 font-mono tracking-wider font-bold">GRAND MIX EXAM</p>
+                </div>
+            </div>
+            <div class="flex items-center gap-4">
+                <div id="timer" class="font-mono font-bold bg-slate-900 text-white px-4 py-1.5 rounded-lg text-sm shadow-inner hidden">60:00</div>
+            </div>
         </div>
     </nav>
 
-    <main class="flex-grow max-w-7xl mx-auto px-4 py-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <main class="flex-grow max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
         
-        <!-- Registration -->
-        <div id="screen-start" class="col-span-12 bg-white p-12 rounded-2xl border border-slate-200 text-center max-w-lg mx-auto mt-10 shadow-sm">
-            <h2 class="text-3xl font-bold mb-4 text-slate-800">50 Question DevOps Exam</h2>
-            <p class="text-slate-500 mb-6">Test your knowledge across Linux, Networking, Git, and Docker.</p>
-            <input type="text" id="studentName" placeholder="Enter Full Name" class="w-full p-4 border border-slate-300 rounded-xl mb-4 text-center">
-            <button onclick="initializeExam()" class="w-full py-4 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-all">Start Exam (60 Mins)</button>
+        <!-- ============================================== -->
+        <!-- SCREEN 1: REGISTRATION                         -->
+        <!-- ============================================== -->
+        <div id="screen-start" class="bg-white p-8 sm:p-12 rounded-2xl border border-slate-200 text-center max-w-lg mx-auto mt-10 shadow-lg">
+            <div class="text-5xl mb-4">🧠</div>
+            <h2 class="text-3xl font-extrabold mb-2 text-slate-800">50 Question Exam</h2>
+            <p class="text-slate-500 mb-8 text-sm">Test your knowledge across Linux, Networking, Git, and Docker. You have exactly 60 minutes.</p>
+            
+            <input type="text" id="studentName" placeholder="Enter Your Full Name" class="w-full p-4 border border-slate-300 rounded-xl mb-4 text-center font-semibold focus:ring-2 focus:ring-indigo-500 focus:outline-none transition">
+            
+            <button onclick="initializeExam()" class="w-full py-4 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-all shadow-md uppercase tracking-widest text-sm">
+                Start Exam
+            </button>
         </div>
 
-        <!-- Exam Workspace -->
-        <div id="screen-quiz" class="hidden col-span-12 lg:col-span-8 space-y-6">
-            <div id="questions-workspace" class="space-y-6"></div>
-            <button onclick="evaluateExam()" class="w-full py-4 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-700 transition-all">Submit Answers</button>
-        </div>
-
-        <!-- Navigator -->
-        <div id="navigator" class="hidden lg:block lg:col-span-4 sticky top-24 h-fit">
-            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
-                <h4 class="font-bold mb-4 text-sm uppercase">Navigator</h4>
-                <div id="grid-navigator" class="grid grid-cols-5 gap-2"></div>
+        <!-- ============================================== -->
+        <!-- SCREEN 2: EXAM WORKSPACE & NAVIGATOR         -->
+        <!-- ============================================== -->
+        <div id="screen-exam" class="hidden grid grid-cols-1 lg:grid-cols-12 gap-8">
+            
+            <!-- Left Side: Questions Container -->
+            <div class="col-span-12 lg:col-span-8 space-y-6">
+                <!-- Status Bar -->
+                <div class="flex justify-between items-center bg-white p-4 rounded-xl border border-slate-200 shadow-sm sticky top-20 z-40">
+                    <span id="displayStudent" class="font-bold text-sm text-slate-700"></span>
+                    <span id="answeredCounter" class="text-xs font-mono font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-lg border border-indigo-100">0 / 50 Answered</span>
+                </div>
+                
+                <!-- Questions injected here via JS -->
+                <div id="questions-workspace" class="space-y-6"></div>
+                
+                <!-- Submit Button -->
+                <button onclick="evaluateExam()" class="w-full mt-8 py-5 bg-indigo-600 hover:bg-indigo-700 text-white font-extrabold rounded-xl shadow-lg uppercase tracking-widest text-sm transition-all flex justify-center items-center gap-2">
+                    <i class="fa-solid fa-check-double"></i> Submit Exam & Reveal Answers
+                </button>
             </div>
+
+            <!-- Right Side: Sticky Navigator -->
+            <div class="hidden lg:block lg:col-span-4 sticky top-24 h-fit space-y-6">
+                <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
+                    <h4 class="font-bold mb-4 text-xs uppercase text-slate-500 tracking-widest border-b border-slate-100 pb-2">Exam Navigator</h4>
+                    <p class="text-[11px] text-slate-400 mb-4">Click a number to jump directly to that question. Indigo squares are answered.</p>
+                    
+                    <!-- Navigator buttons injected here via JS -->
+                    <div id="grid-navigator" class="grid grid-cols-5 gap-2"></div>
+                </div>
+                
+                <div class="bg-indigo-50 p-5 rounded-2xl border border-indigo-100 space-y-3">
+                    <h5 class="font-bold text-indigo-900 text-xs flex items-center gap-2">
+                        <i class="fa-solid fa-lightbulb text-indigo-500"></i> Instructor Tip
+                    </h5>
+                    <p class="text-[11px] text-indigo-700 leading-relaxed font-medium">
+                        Read the flags carefully! A lowercase <code>-r</code> might mean something completely different than a capital <code>-R</code>.
+                    </p>
+                </div>
+            </div>
+            
         </div>
 
-        <!-- Results -->
-        <div id="screen-results" class="hidden col-span-12 space-y-8">
-            <div class="bg-white p-8 rounded-2xl text-center shadow-lg border border-slate-200">
-                <h2 class="text-3xl font-bold">Assessment Complete</h2>
-                <div id="scoreMetric" class="text-6xl font-black text-indigo-600 my-6"></div>
-                <button onclick="dispatchReportEmail()" class="py-3 px-6 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700">Email Results</button>
+        <!-- ============================================== -->
+        <!-- SCREEN 3: RESULTS & DIAGNOSTICS                -->
+        <!-- ============================================== -->
+        <div id="screen-results" class="hidden space-y-8 max-w-4xl mx-auto">
+            
+            <div class="bg-white p-8 sm:p-12 rounded-2xl text-center shadow-lg border border-slate-200">
+                <span class="text-6xl block mb-4">🎯</span>
+                <h2 class="text-3xl font-bold mb-2 text-slate-900">Assessment Complete</h2>
+                <div id="scoreMetric" class="text-7xl font-black text-indigo-600 my-6 tracking-tighter"></div>
+                <h4 id="feedbackTitle" class="text-xl font-bold text-slate-800 mb-2"></h4>
+                <p id="feedbackDesc" class="text-sm text-slate-500 leading-relaxed font-medium max-w-lg mx-auto"></p>
+                
+                <div class="pt-8 mt-6 flex justify-center gap-4">
+                    <button onclick="dispatchReportEmail()" class="py-3 px-6 bg-emerald-600 text-white rounded-xl font-bold hover:bg-emerald-700 transition-colors uppercase tracking-widest text-xs flex items-center gap-2 shadow-md">
+                        <i class="fa-solid fa-paper-plane"></i> Email Results
+                    </button>
+                    <button onclick="location.reload()" class="py-3 px-6 bg-slate-100 text-slate-700 rounded-xl font-bold hover:bg-slate-200 transition-colors uppercase tracking-widest text-xs">
+                        Retake Exam
+                    </button>
+                </div>
             </div>
-            <div id="review-workspace" class="space-y-4"></div>
+            
+            <div class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm">
+                <h3 class="text-lg font-bold text-slate-900 mb-6 border-b border-slate-100 pb-4 flex items-center gap-2">
+                    <i class="fa-solid fa-list-check text-indigo-500"></i> Detailed Answer Review
+                </h3>
+                <!-- Reviews injected here via JS -->
+                <div id="review-workspace" class="space-y-6"></div>
+            </div>
         </div>
     </main>
 
     <!-- Footer -->
     <footer class="text-center py-8 text-slate-500 text-xs bg-white border-t mt-8">
-        <p class="font-bold text-slate-700">Test Created by DevOps Eng KULDEEP</p>
-        <p class="font-mono text-indigo-500">kuldeephimachal83@gmail.com</p>
-        <div class="flex justify-center gap-4 mt-3 text-lg">
-            <a href="https://linkedin.com/in/kuldeep-engineer/" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
-            <a href="https://github.com/developer-kuldeep" title="GitHub"><i class="fa-brands fa-github"></i></a>
+        <p class="font-bold text-slate-700 uppercase tracking-widest mb-1">Created by DevOps Eng KULDEEP</p>
+        <p class="font-mono text-indigo-500 mb-4">kuldeephimachal83@gmail.com</p>
+        <div class="flex justify-center gap-6 text-xl">
+            <a href="https://www.linkedin.com/in/kuldeep-engineer/" target="_blank" class="hover:text-indigo-600 transition-colors" title="LinkedIn Profile"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://github.com/developer-kuldeep" target="_blank" class="hover:text-indigo-600 transition-colors" title="GitHub Profile"><i class="fa-brands fa-github"></i></a>
         </div>
     </footer>
 
     <script>
+        // Exactly 50 Questions covering all requested DevOps & Cloud domains
         const quizData = [
-            {q: "What does 'chmod 755' do?", o: ["Full access for all", "User full, others read/execute", "Read only", "Write only"], a: 1, r: "755 gives User full control, while Others get Read+Execute access."},
-            {q: "Default port for SSH?", o: ["80", "443", "22", "3306"], a: 2, r: "SSH standard port is 22."},
-            {q: "What is 'grep'?", o: ["Search pattern in text", "Rename file", "Delete file", "Copy file"], a: 0, r: "Grep searches for text strings."},
-            {q: "Dockerfile instruction to run commands at build time?", o: ["CMD", "RUN", "ENTRYPOINT", "ENV"], a: 1, r: "RUN is executed at build time."},
-            {q: "Default HTTP port?", o: ["80", "443", "22", "8080"], a: 0, r: "HTTP standard is 80."},
-            {q: "What is 127.0.0.1?", o: ["Google", "Localhost", "Router", "Database"], a: 1, r: "Loopback address."},
-            {q: "Git command to check status?", o: ["git status", "git log", "git init", "git add"], a: 0, r: "git status checks tracked/untracked state."},
-            {q: "Status 404 means?", o: ["Success", "Not Found", "Error", "Redirect"], a: 1, r: "404 is Not Found."},
-            {q: "File extension for Node?", o: [".js", ".py", ".java", ".exe"], a: 0, r: "Node uses .js."},
-            {q: "Command to start Nginx?", o: ["start nginx", "systemctl start nginx", "run nginx", "open nginx"], a: 1, r: "Use systemctl to manage services."},
-            {q: "How to stage all files?", o: ["git add .", "git stage", "git commit", "git sync"], a: 0, r: "git add . stages all changes."},
-            {q: "JSON full name?", o: ["Java Object Notation", "JavaScript Object Notation", "JScript Object Node", "Java Source Network"], a: 1, r: "JavaScript Object Notation."},
-            {q: "Docker image recipe file?", o: ["recipe.txt", "Dockerfile", "config.yml", "docker.json"], a: 1, r: "Dockerfile."},
-            {q: "Permission 4?", o: ["Read", "Write", "Execute", "None"], a: 0, r: "4 is Read."},
-            {q: "Permission 2?", o: ["Read", "Write", "Execute", "None"], a: 1, r: "2 is Write."},
-            {q: "What port is 443?", o: ["HTTP", "SSH", "HTTPS", "MySQL"], a: 2, r: "443 is HTTPS."},
-            {q: "How to see disk space?", o: ["df -h", "free -m", "ls", "ps"], a: 0, r: "df shows disk free space."},
-            {q: "Command to kill process?", o: ["stop", "kill -9", "end", "delete"], a: 1, r: "kill -9 forces termination."},
-            {q: "How to create folder?", o: ["touch", "mkdir", "new", "file"], a: 1, r: "mkdir = make directory."},
-            {q: "What is DNS?", o: ["Name to IP", "IP to Name", "A file", "A port"], a: 0, r: "Maps names to IPs."},
-            {q: "YAML extension?", o: [".yml", ".txt", ".json", ".xml"], a: 0, r: "YAML is .yml."},
-            {q: "What is an IP?", o: ["Address", "Browser", "Server", "Script"], a: 0, r: "Unique Network Identifier."},
-            {q: "Default port for HTTPS?", o: ["80", "443", "22", "8080"], a: 1, r: "HTTPS is 443."},
-            {q: "Status 500?", o: ["Found", "Error", "Success", "Wait"], a: 1, r: "Server-side error."},
-            {q: "Docker ps?", o: ["List images", "List containers", "Delete all", "Restart"], a: 1, r: "Shows containers."},
-            {q: "Which file is for dependencies?", o: ["package.json", "index.html", "Dockerfile", ".gitignore"], a: 0, r: "package.json lists npm deps."},
-            {q: "What is the loopback interface?", o: ["eth0", "lo", "wlan0", "docker0"], a: 1, r: "lo is the loopback."},
-            {q: "How to switch user in bash?", o: ["su", "chown", "chmod", "kill"], a: 0, r: "su = switch user."},
-            {q: "What is curl?", o: ["Browser", "API tester", "Editor", "Folder"], a: 1, r: "Command line data transfer tool."},
-            {q: "What does 'cd' mean?", o: ["Create Dir", "Change Dir", "Copy Dir", "Clear Dir"], a: 1, r: "Change Directory."},
-            {q: "What is .md file?", o: ["Image", "Markdown", "Video", "Config"], a: 1, r: "Markdown docs."},
-            {q: "Where is log usually?", o: ["/bin", "/var/log", "/etc", "/root"], a: 1, r: "/var/log."},
-            {q: "What is a container?", o: ["Virtual OS", "Static Image", "Isolated running instance", "Web page"], a: 2, r: "Running instance of image."},
-            {q: "Command to remove dir?", o: ["rm -rf", "delete", "erase", "rmdir"], a: 0, r: "rm -rf is recursive/force remove."},
-            {q: "Who is root?", o: ["User", "Admin", "File", "Process"], a: 1, r: "Root is the admin."},
-            {q: "SSH key generation?", o: ["ssh-keygen", "ssh-new", "ssh-create", "ssh-key"], a: 0, r: "ssh-keygen creates keys."},
-            {q: "Git push?", o: ["Upload", "Download", "Commit", "Branch"], a: 0, r: "Upload commits."},
-            {q: "Package Manager?", o: ["apt", "git", "docker", "nginx"], a: 0, r: "apt is Ubuntu's pkg manager."},
-            {q: "What is bash?", o: ["Shell", "File", "Image", "Container"], a: 0, r: "Bash is a shell."},
-            {q: "Status 201?", o: ["Created", "Found", "Error", "Wait"], a: 0, r: "201 Created."},
-            {q: "What is 0.0.0.0?", o: ["All IPs", "Localhost", "Router", "Database"], a: 0, r: "Binds to all interfaces."},
-            {q: "What is chmod?", o: ["Change Mode", "Change Owner", "Change Mod", "Clear Mode"], a: 0, r: "Change file mode (perms)."},
-            {q: "What is sudo?", o: ["Superuser do", "System do", "Super admin", "Root access"], a: 0, r: "Borrow root privs."},
-            {q: "How to see RAM?", o: ["free", "df", "ls", "ps"], a: 0, r: "free -m."},
-            {q: "What is ping?", o: ["Network test", "Database test", "Disk test", "File test"], a: 0, r: "Connectivity test."},
-            {q: "What is .gitignore?", o: ["Ignore files", "Git config", "A branch", "A file"], a: 0, r: "Tells Git which files to ignore."},
-            {q: "What is a repo?", o: ["Repository", "Report", "Report file", "Run script"], a: 0, r: "Git repository."},
-            {q: "What is branch?", o: ["New line", "New file", "Parallel work", "Copy"], a: 2, r: "Parallel development line."},
-            {q: "How to merge?", o: ["git merge", "git join", "git combine", "git mix"], a: 0, r: "git merge combines code."},
-            {q: "What is HEAD?", o: ["Last commit", "First commit", "Branch", "File"], a: 0, r: "HEAD points to latest commit."}
+            // Linux Basics & Flags
+            {q: "Which command lists hidden files and uses human-readable sizes?", o: ["ls -l", "ls -a", "ls -lah", "ls -h"], a: 2, r: "-l is long format, -a is all (hidden), -h is human-readable."},
+            {q: "What is the result of 'rm -rf /'?", o: ["Clears terminal", "Deletes only log files", "Forcefully deletes everything from system root", "Lists files"], a: 2, r: "It forces recursive deletion of the root directory. NEVER run this."},
+            {q: "Which command safely creates a folder and all its missing parents?", o: ["mkdir -p", "mkdir -r", "mkdir -a", "mkdir -f"], a: 0, r: "-p (parents) creates the full directory tree structure."},
+            {q: "How to check system RAM usage?", o: ["top", "df", "free -m", "ls"], a: 2, r: "free -m displays memory in megabytes."},
+            {q: "What does 'chmod 755' do?", o: ["Locks file", "User: Full, Group: Read/Exec, Others: Read/Exec", "Everyone gets Read only", "Admin only"], a: 1, r: "7 (User full: rwx), 5 (Group: r-x), 5 (Others: r-x)."},
+            {q: "How to add 'rahul' to the 'docker' group without removing existing groups?", o: ["usermod -aG docker rahul", "useradd -G docker rahul", "gpasswd rahul docker", "groupadd rahul docker"], a: 0, r: "-aG (Append to Group) keeps existing groups and adds the new one."},
+            {q: "What signal does 'kill -9' send?", o: ["SIGTERM (Soft)", "SIGKILL (Hard)", "SIGHUP", "SIGINT"], a: 1, r: "-9 sends SIGKILL, which is immediate forced termination."},
+            {q: "Which command prints your current folder path?", o: ["whoami", "pwd", "whereami", "ls"], a: 1, r: "pwd = Print Working Directory."},
+            {q: "How to read the end of a log file and follow it live?", o: ["tail -f", "head -f", "cat -f", "read -f"], a: 0, r: "tail -f follows the file stream in real-time."},
+            {q: "Which directory contains system configuration files?", o: ["/bin", "/home", "/etc", "/var"], a: 2, r: "/etc holds global system configuration."},
+            {q: "What command shows all active TCP/UDP network connections?", o: ["ping", "ss -tulpn", "ip", "ifconfig"], a: 1, r: "ss (Socket Statistics) with -tulpn shows active listening ports and PIDs."},
+            {q: "How to update package lists in Ubuntu?", o: ["apt upgrade", "apt update", "apt install", "apt list"], a: 1, r: "apt update fetches the latest package metadata from repositories."},
+            {q: "What is the standard loopback IP address?", o: ["0.0.0.0", "192.168.1.1", "127.0.0.1", "8.8.8.8"], a: 2, r: "127.0.0.1 always refers to your own local machine (localhost)."},
+            {q: "How to change a file's owner?", o: ["chown", "chmod", "chgrp", "chuser"], a: 0, r: "chown = Change Owner."},
+            {q: "Which command searches text patterns inside files?", o: ["find", "search", "grep", "locate"], a: 2, r: "grep is the standard text-pattern search utility."},
+            
+            // Networking & HTTP
+            {q: "What is the default port for HTTP traffic?", o: ["22", "80", "443", "3306"], a: 1, r: "HTTP = 80, HTTPS = 443."},
+            {q: "What is the default port for HTTPS traffic?", o: ["80", "443", "22", "8080"], a: 1, r: "HTTPS uses Port 443 for TLS/SSL encryption."},
+            {q: "HTTP Status 200 means?", o: ["Error", "OK / Success", "Forbidden", "Moved"], a: 1, r: "200 indicates the request was successful."},
+            {q: "HTTP Status 404 means?", o: ["Found", "Not Found", "Server Error", "Redirect"], a: 1, r: "404 means the requested resource does not exist on the server."},
+            {q: "HTTP Status 500 means?", o: ["Success", "Forbidden", "Internal Server Error", "Timeout"], a: 2, r: "500 usually indicates a backend application crash or syntax error."},
+            {q: "What does DNS (Domain Name System) do?", o: ["Translates domain names to IP addresses", "Translates IPs to MAC addresses", "Encrypts traffic", "Blocks hackers"], a: 0, r: "DNS maps human-readable names (like google.com) to numerical IPs."},
+            {q: "Which command-line tool is best for testing API endpoints?", o: ["npm", "curl", "git", "ls"], a: 1, r: "curl performs network requests to APIs and web servers directly from the terminal."},
+            {q: "Which protocol is connection-oriented and reliable?", o: ["TCP", "UDP", "IP", "ICMP"], a: 0, r: "TCP establishes a handshake (3-way) to guarantee reliable data transfer."},
+            {q: "Which protocol is connectionless and faster (used for video/DNS)?", o: ["TCP", "UDP", "SSH", "HTTP"], a: 1, r: "UDP sends packets without waiting for confirmation, sacrificing reliability for speed."},
+            {q: "What port does MySQL typically listen on by default?", o: ["80", "443", "3306", "22"], a: 2, r: "MySQL uses 3306. PostgreSQL usually uses 5432."},
+            
+            // Docker
+            {q: "What is a Docker Image?", o: ["The running application", "A configuration file", "A read-only blueprint/template", "A virtual machine"], a: 2, r: "Image = Read-only Blueprint; Container = Running Instance of that blueprint."},
+            {q: "Which command builds a Docker image from a Dockerfile?", o: ["docker run", "docker build", "docker push", "docker pull"], a: 1, r: "docker build reads the Dockerfile and executes the steps to bake the image."},
+            {q: "What is the correct filename for a Dockerfile?", o: ["dockerfile.txt", "docker.json", "Dockerfile (no extension)", "docker.yaml"], a: 2, r: "It is exactly 'Dockerfile' with a capital D and zero file extensions."},
+            {q: "What is the difference between RUN and CMD in a Dockerfile?", o: ["They are the same", "RUN executes at build-time; CMD executes at run-time", "CMD is at build-time", "Neither executes code"], a: 1, r: "RUN installs things into the image. CMD is the default command that starts the app when the container boots."},
+            {q: "How do you map port 8080 on your laptop to port 80 inside the container?", o: ["-p 8080:80", "-p 80:8080", "-map 8080", "-link 8080"], a: 0, r: "The syntax is always 'HostPort:ContainerPort'."},
+            {q: "What does the '-d' flag do in 'docker run -d'?", o: ["Deletes the container", "Runs in Detached mode (background)", "Debug mode", "Downloads the image"], a: 1, r: "Detached mode keeps your terminal free while the container runs in the background."},
+            {q: "Which command shows all containers, including stopped ones?", o: ["docker ps", "docker images", "docker ps -a", "docker show all"], a: 2, r: "'docker ps' shows active containers. Adding '-a' (all) shows stopped/crashed ones too."},
+            {q: "What is the purpose of the '.dockerignore' file?", o: ["Hides files from the internet", "Excludes local files (like node_modules) from being copied into the build", "Deletes old containers", "Configures networking"], a: 1, r: "It keeps your Docker images small by preventing unnecessary local files from being sent to the Docker daemon."},
+            {q: "Where are public Docker images officially stored?", o: ["GitHub", "Docker Hub", "AWS S3", "Google Drive"], a: 1, r: "Docker Hub is the primary public registry (app store) for container images."},
+            {q: "What tool manages multi-container applications (like Node + MySQL) via a YAML file?", o: ["Docker Compose", "Docker Swarm", "Git", "Nginx"], a: 0, r: "Docker Compose uses a docker-compose.yml file to boot up entire environments at once."},
+            {q: "What is a Docker Volume used for?", o: ["Increasing sound", "Persistent data storage that survives container deletion", "A specific command", "A process limit"], a: 1, r: "Volumes keep data safe. If a database container is deleted, the data inside the Volume remains intact."},
+            {q: "How do you open an interactive terminal inside a running container?", o: ["docker enter", "docker exec -it <id> sh", "ssh container", "docker open"], a: 1, r: "'exec' runs a command in an active container. '-it' makes it interactive. 'sh' opens the shell."},
+            
+            // Git & File Extensions
+            {q: "Which command creates a new local Git repository?", o: ["git start", "git init", "git clone", "git commit"], a: 1, r: "git init creates the hidden .git tracking folder."},
+            {q: "How do you stage all modified files for a commit?", o: ["git add .", "git stage all", "git commit -a", "git sync"], a: 0, r: "git add . moves all changes in the current directory into the staging area."},
+            {q: "What does 'git clone' do?", o: ["Copies a file", "Downloads an entire remote repository and its history to your local machine", "Pushes code to GitHub", "Deletes a repository"], a: 1, r: "Clone duplicates the remote project locally."},
+            {q: "What does 'git pull' essentially do?", o: ["Fetches remote changes and merges them into your local branch", "Uploads code", "Deletes the branch", "Only downloads metadata"], a: 0, r: "git pull is a combination of git fetch followed immediately by git merge."},
+            {q: "What file extension is used for standard JavaScript files?", o: [".java", ".js", ".html", ".css"], a: 1, r: "JavaScript files use .js."},
+            {q: "What does JSON stand for?", o: ["Java Source Object Network", "JavaScript Object Notation", "Java System Object Node", "JScript Oriented Net"], a: 1, r: "JSON is the standard format for structured data transfer."},
+            {q: "What extension do Docker Compose and Kubernetes configuration files use?", o: [".json", ".xml", ".yaml / .yml", ".ini"], a: 2, r: "YAML is standard for modern cloud-native configuration files due to its readability."},
+            {q: "Which file usually contains project dependencies in a Node.js project?", o: ["index.html", "package.json", "Dockerfile", ".gitignore"], a: 1, r: "package.json tracks the project's required npm libraries."},
+            {q: "What is a .md file used for?", o: ["Music Data", "Markdown documentation (like a README)", "Machine Docker", "Metadata"], a: 1, r: "Markdown (.md) is used to format text beautifully with simple symbols on platforms like GitHub."},
+            
+            // Advanced Linux & Cloud Mix
+            {q: "How do you temporarily borrow root (admin) privileges in Linux?", o: ["Use the 'su' command", "Prefix the command with 'sudo'", "Log out and log in as root", "Use 'admin' flag"], a: 1, r: "sudo (Superuser Do) safely executes a single command with root powers."},
+            {q: "What does '0.0.0.0' represent in networking?", o: ["The loopback address", "Binds to all available network interfaces on the host", "A dead IP address", "The router's address"], a: 1, r: "Binding a server to 0.0.0.0 means it will accept connections from the outside world, not just localhost."},
+            {q: "Which command shows you your exact current username?", o: ["whoami", "id", "pwd", "ls"], a: 0, r: "whoami returns the effective user ID name."},
+            {q: "What does 'cat > file.txt' do?", o: ["Reads the file", "Takes standard input from your keyboard and writes it directly to the file", "Deletes the file", "Throws an error"], a: 1, r: "The '>' operator redirects the input stream directly into the file."}
         ];
 
         let userChoices = new Array(50).fill(null);
         let timeLeft = 3600;
+        let timerInterval;
 
         function initializeExam() {
-            const name = document.getElementById('studentName').value;
-            if(!name) return alert("Enter Name");
-            document.getElementById('screen-start').classList.add('hidden');
-            document.getElementById('screen-quiz').classList.remove('hidden');
-            document.getElementById('navigator').classList.remove('hidden');
+            const name = document.getElementById('studentName').value.trim();
+            if(!name) return alert("Please enter your name to begin.");
             
+            // Show Timer
+            document.getElementById('timer').classList.remove('hidden');
+            
+            // Switch Screens
+            document.getElementById('displayStudent').textContent = `Candidate: ${name}`;
+            document.getElementById('screen-start').classList.add('hidden');
+            document.getElementById('screen-exam').classList.remove('hidden');
+            
+            // Render Questions
             const workspace = document.getElementById('questions-workspace');
+            let qHTML = '';
             quizData.forEach((item, i) => {
-                workspace.innerHTML += `<div class="bg-white p-6 rounded-2xl border border-slate-200">
-                    <p class="font-bold mb-4">${i+1}. ${item.q}</p>
-                    ${item.o.map((opt, oi) => `<label class="block p-3 border rounded-lg mb-2 cursor-pointer hover:bg-slate-50"><input type="radio" name="q${i}" value="${oi}" onchange="recordChoice(${i}, ${oi})"> ${opt}</label>`).join('')}
+                qHTML += `<div id="q-${i}" class="bg-white p-6 sm:p-8 rounded-2xl border border-slate-200 shadow-sm scroll-mt-24">
+                    <p class="font-bold mb-4 text-slate-800 text-base">${i+1}. ${item.q}</p>
+                    <div class="grid gap-2">
+                        ${item.o.map((opt, oi) => `
+                        <label class="block p-4 border border-slate-200 rounded-xl cursor-pointer hover:bg-indigo-50 hover:border-indigo-300 transition-colors">
+                            <input type="radio" name="q${i}" value="${oi}" onchange="recordChoice(${i}, ${oi})" class="mr-3 text-indigo-600 focus:ring-indigo-500"> 
+                            <span class="text-sm font-medium text-slate-700">${opt}</span>
+                        </label>`).join('')}
+                    </div>
                 </div>`;
             });
+            workspace.innerHTML = qHTML;
             
+            // Render Navigator
             const nav = document.getElementById('grid-navigator');
-            for(let i=0; i<50; i++) nav.innerHTML += `<button id="nav-${i}" class="p-2 bg-slate-100 rounded text-xs">${i+1}</button>`;
+            let navHTML = '';
+            for(let i=0; i<50; i++) {
+                navHTML += `<button id="nav-${i}" onclick="jumpTo(${i})" class="p-2 bg-slate-100 border border-slate-200 hover:bg-slate-200 text-slate-600 rounded-lg text-xs font-bold transition-all">${i+1}</button>`;
+            }
+            nav.innerHTML = navHTML;
             
-            setInterval(updateTimer, 1000);
+            // Start Timer
+            timerInterval = setInterval(updateTimer, 1000);
+            window.scrollTo(0,0);
+        }
+
+        function jumpTo(index) {
+            document.getElementById(`q-${index}`).scrollIntoView({ behavior: 'smooth', block: 'center' });
         }
 
         function updateTimer() {
             timeLeft--;
             const mins = Math.floor(timeLeft/60);
             const secs = timeLeft % 60;
-            document.getElementById('timer').innerText = `${mins}:${secs < 10 ? '0'+secs : secs}`;
-            if(timeLeft <= 0) evaluateExam();
+            const timerEl = document.getElementById('timer');
+            timerEl.innerText = `${mins}:${secs < 10 ? '0'+secs : secs}`;
+            
+            if(timeLeft < 300) { // Under 5 minutes, turn red
+                timerEl.classList.remove('bg-slate-900');
+                timerEl.classList.add('bg-red-600', 'animate-pulse');
+            }
+            
+            if(timeLeft <= 0) {
+                clearInterval(timerInterval);
+                evaluateExam();
+            }
         }
 
         function recordChoice(q, o) {
             userChoices[q] = o;
-            document.getElementById(`nav-${q}`).className = "p-2 bg-indigo-600 text-white rounded text-xs";
+            // Update Navigator Style
+            document.getElementById(`nav-${q}`).className = "p-2 bg-indigo-600 text-white rounded-lg text-xs font-bold shadow-sm transition-all";
+            // Update Counter
+            const answered = userChoices.filter(a => a !== null).length;
+            document.getElementById('answeredCounter').innerText = `${answered} / 50 Answered`;
         }
 
         function evaluateExam() {
+            clearInterval(timerInterval);
             let score = 0;
             const review = document.getElementById('review-workspace');
             review.innerHTML = "";
+            
             quizData.forEach((item, i) => {
                 if(userChoices[i] === item.a) score++;
                 review.innerHTML += `
-                    <div class="p-4 rounded-xl border ${userChoices[i] === item.a ? 'bg-green-50' : 'bg-red-50'}">
-                        <p class="font-bold">${i+1}. ${item.q}</p>
-                        <p class="text-sm">Your answer: ${userChoices[i] !== null ? item.o[userChoices[i]] : 'None'}</p>
-                        <p class="text-sm text-green-700 font-bold">Correct: ${item.o[item.a]}</p>
-                        <p class="text-xs text-slate-500 mt-2 italic">${item.r}</p>
+                    <div class="p-6 rounded-2xl border ${userChoices[i] === item.a ? 'bg-emerald-50 border-emerald-200' : 'bg-red-50 border-red-200'}">
+                        <p class="font-bold text-slate-800 mb-3">${i+1}. ${item.q}</p>
+                        <p class="text-sm text-slate-600 mb-1">Your answer: <span class="font-bold ${userChoices[i] === item.a ? 'text-emerald-700' : 'text-red-600'}">${userChoices[i] !== null ? item.o[userChoices[i]] : 'Skipped / Unattempted'}</span></p>
+                        <p class="text-sm text-slate-600 mb-4">Correct: <span class="text-emerald-700 font-bold">${item.o[item.a]}</span></p>
+                        <div class="bg-white p-4 rounded-xl border ${userChoices[i] === item.a ? 'border-emerald-100' : 'border-red-100'} shadow-sm">
+                            <strong class="text-xs uppercase tracking-widest text-indigo-600 block mb-1">Explanation</strong>
+                            <p class="text-xs text-slate-600 leading-relaxed">${item.r}</p>
+                        </div>
                     </div>
                 `;
             });
-            document.getElementById('screen-quiz').classList.add('hidden');
+            
+            document.getElementById('screen-exam').classList.add('hidden');
+            document.getElementById('timer').classList.add('hidden');
             document.getElementById('screen-results').classList.remove('hidden');
             document.getElementById('scoreMetric').innerText = `${score} / 50`;
+            
+            // Provide dynamic feedback based on score
+            const percent = (score / 50) * 100;
+            let title = "", desc = "";
+            if(percent < 50) {
+                title = "Keep Practicing!";
+                desc = "You're getting there, but you need more hands-on practice with Linux flags and Docker definitions. Review the explanations below carefully.";
+            } else if(percent < 80) {
+                title = "Solid Engineer!";
+                desc = "Great job! You have a strong grasp of DevOps fundamentals. Review the ones you missed to perfect your command-line logic.";
+            } else {
+                title = "Master Architect!";
+                desc = "Incredible score! You have mastered Linux, Git workflows, Docker architecture, and Networking. You are absolutely crushing it.";
+            }
+            document.getElementById('feedbackTitle').innerText = title;
+            document.getElementById('feedbackDesc').innerText = desc;
+            
+            window.scrollTo(0,0);
         }
 
         function dispatchReportEmail() {
-            window.location.href = `mailto:kuldeephimachal83@gmail.com?subject=50 Question DevOps Exam Results`;
+            const name = document.getElementById('studentName').value;
+            const score = userChoices.filter((a, i) => a === quizData[i].a).length;
+            const percent = ((score / 50) * 100).toFixed(1);
+            
+            let body = `DEVOPS 50-QUESTION EXAM RESULTS%0D%0A`;
+            body += `---------------------------------%0D%0A`;
+            body += `Student: ${name}%0D%0A`;
+            body += `Score: ${score} / 50 (${percent}%)%0D%0A`;
+            body += `Date: ${new Date().toLocaleString()}%0D%0A`;
+            
+            window.location.href = `mailto:kuldeephimachal83@gmail.com?subject=Grand Mix Exam Results: ${name}&body=${body}`;
         }
     </script>
 </body>
