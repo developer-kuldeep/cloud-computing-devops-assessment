@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevOps Grand Mix Assessment</title>
+    <title>100-Question DevOps & Cloud Assessment</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -21,7 +21,6 @@
 </head>
 <body class="min-h-screen relative flex flex-col justify-between selection:bg-indigo-500/20">
 
-    <!-- Watermark -->
     <div class="watermark">kuldeephimachal83@gmail.com</div>
 
     <!-- Navigation -->
@@ -33,7 +32,7 @@
                 </div>
                 <div>
                     <h1 class="text-sm font-extrabold tracking-tight text-slate-900">DevOps Academy</h1>
-                    <p class="text-[10px] text-indigo-600 font-mono tracking-wider font-bold">GRAND MIX EXAM</p>
+                    <p class="text-[10px] text-indigo-600 font-mono tracking-wider font-bold">100-QUESTION EXAM</p>
                 </div>
             </div>
             <div class="flex items-center gap-4">
@@ -49,13 +48,13 @@
         <!-- ============================================== -->
         <div id="screen-start" class="bg-white p-8 sm:p-12 rounded-2xl border border-slate-200 text-center max-w-lg mx-auto mt-10 shadow-lg">
             <div class="text-5xl mb-4">🧠</div>
-            <h2 class="text-3xl font-extrabold mb-2 text-slate-800">50 Question Exam</h2>
-            <p class="text-slate-500 mb-8 text-sm">Test your knowledge across Linux, Networking, Git, and Docker. You have exactly 60 minutes.</p>
+            <h2 class="text-3xl font-extrabold mb-2 text-slate-800">Master Assessment</h2>
+            <p class="text-slate-500 mb-8 text-sm">100 Questions covering Linux, Web Servers, Networking, Git, and Docker. You have exactly 60 minutes.</p>
             
             <input type="text" id="studentName" placeholder="Enter Your Full Name" class="w-full p-4 border border-slate-300 rounded-xl mb-4 text-center font-semibold focus:ring-2 focus:ring-indigo-500 focus:outline-none transition">
             
             <button onclick="initializeExam()" class="w-full py-4 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-all shadow-md uppercase tracking-widest text-sm">
-                Start Exam
+                Start 100-Question Exam
             </button>
         </div>
 
@@ -69,7 +68,7 @@
                 <!-- Status Bar -->
                 <div class="flex justify-between items-center bg-white p-4 rounded-xl border border-slate-200 shadow-sm sticky top-20 z-40">
                     <span id="displayStudent" class="font-bold text-sm text-slate-700"></span>
-                    <span id="answeredCounter" class="text-xs font-mono font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-lg border border-indigo-100">0 / 50 Answered</span>
+                    <span id="answeredCounter" class="text-xs font-mono font-bold text-indigo-600 bg-indigo-50 px-3 py-1 rounded-lg border border-indigo-100">0 / 100 Answered</span>
                 </div>
                 
                 <!-- Questions injected here via JS -->
@@ -85,18 +84,18 @@
             <div class="hidden lg:block lg:col-span-4 sticky top-24 h-fit space-y-6">
                 <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                     <h4 class="font-bold mb-4 text-xs uppercase text-slate-500 tracking-widest border-b border-slate-100 pb-2">Exam Navigator</h4>
-                    <p class="text-[11px] text-slate-400 mb-4">Click a number to jump directly to that question. Indigo squares are answered.</p>
+                    <p class="text-[11px] text-slate-400 mb-4">Click a number to jump directly. Indigo squares are answered.</p>
                     
-                    <!-- Navigator buttons injected here via JS -->
-                    <div id="grid-navigator" class="grid grid-cols-5 gap-2"></div>
+                    <!-- Navigator buttons injected here via JS (10 columns to save space) -->
+                    <div id="grid-navigator" class="grid grid-cols-5 sm:grid-cols-10 lg:grid-cols-5 xl:grid-cols-10 gap-1.5"></div>
                 </div>
                 
                 <div class="bg-indigo-50 p-5 rounded-2xl border border-indigo-100 space-y-3">
                     <h5 class="font-bold text-indigo-900 text-xs flex items-center gap-2">
-                        <i class="fa-solid fa-lightbulb text-indigo-500"></i> Instructor Tip
+                        <i class="fa-solid fa-lightbulb text-indigo-500"></i> Time Management
                     </h5>
                     <p class="text-[11px] text-indigo-700 leading-relaxed font-medium">
-                        Read the flags carefully! A lowercase <code>-r</code> might mean something completely different than a capital <code>-R</code>.
+                        You have 60 minutes for 100 questions. That is roughly 35 seconds per question. Don't get stuck—skip and come back using the navigator!
                     </p>
                 </div>
             </div>
@@ -106,7 +105,7 @@
         <!-- ============================================== -->
         <!-- SCREEN 3: RESULTS & DIAGNOSTICS                -->
         <!-- ============================================== -->
-        <div id="screen-results" class="hidden space-y-8 max-w-4xl mx-auto">
+        <div id="screen-results" class="hidden space-y-8 max-w-5xl mx-auto">
             
             <div class="bg-white p-8 sm:p-12 rounded-2xl text-center shadow-lg border border-slate-200">
                 <span class="text-6xl block mb-4">🎯</span>
@@ -115,7 +114,7 @@
                 <h4 id="feedbackTitle" class="text-xl font-bold text-slate-800 mb-2"></h4>
                 <p id="feedbackDesc" class="text-sm text-slate-500 leading-relaxed font-medium max-w-lg mx-auto"></p>
                 
-                <div class="pt-8 mt-6 flex justify-center gap-4">
+                <div class="pt-8 mt-6 flex justify-center gap-4 border-t border-slate-100">
                     <button onclick="dispatchReportEmail()" class="py-3 px-6 bg-emerald-600 text-white rounded-xl font-bold hover:bg-emerald-700 transition-colors uppercase tracking-widest text-xs flex items-center gap-2 shadow-md">
                         <i class="fa-solid fa-paper-plane"></i> Email Results
                     </button>
@@ -146,71 +145,125 @@
     </footer>
 
     <script>
-        // Exactly 50 Questions covering all requested DevOps & Cloud domains
+        // EXACTLY 100 QUESTIONS
         const quizData = [
-            // Linux Basics & Flags
-            {q: "Which command lists hidden files and uses human-readable sizes?", o: ["ls -l", "ls -a", "ls -lah", "ls -h"], a: 2, r: "-l is long format, -a is all (hidden), -h is human-readable."},
-            {q: "What is the result of 'rm -rf /'?", o: ["Clears terminal", "Deletes only log files", "Forcefully deletes everything from system root", "Lists files"], a: 2, r: "It forces recursive deletion of the root directory. NEVER run this."},
-            {q: "Which command safely creates a folder and all its missing parents?", o: ["mkdir -p", "mkdir -r", "mkdir -a", "mkdir -f"], a: 0, r: "-p (parents) creates the full directory tree structure."},
-            {q: "How to check system RAM usage?", o: ["top", "df", "free -m", "ls"], a: 2, r: "free -m displays memory in megabytes."},
-            {q: "What does 'chmod 755' do?", o: ["Locks file", "User: Full, Group: Read/Exec, Others: Read/Exec", "Everyone gets Read only", "Admin only"], a: 1, r: "7 (User full: rwx), 5 (Group: r-x), 5 (Others: r-x)."},
-            {q: "How to add 'rahul' to the 'docker' group without removing existing groups?", o: ["usermod -aG docker rahul", "useradd -G docker rahul", "gpasswd rahul docker", "groupadd rahul docker"], a: 0, r: "-aG (Append to Group) keeps existing groups and adds the new one."},
-            {q: "What signal does 'kill -9' send?", o: ["SIGTERM (Soft)", "SIGKILL (Hard)", "SIGHUP", "SIGINT"], a: 1, r: "-9 sends SIGKILL, which is immediate forced termination."},
-            {q: "Which command prints your current folder path?", o: ["whoami", "pwd", "whereami", "ls"], a: 1, r: "pwd = Print Working Directory."},
-            {q: "How to read the end of a log file and follow it live?", o: ["tail -f", "head -f", "cat -f", "read -f"], a: 0, r: "tail -f follows the file stream in real-time."},
-            {q: "Which directory contains system configuration files?", o: ["/bin", "/home", "/etc", "/var"], a: 2, r: "/etc holds global system configuration."},
-            {q: "What command shows all active TCP/UDP network connections?", o: ["ping", "ss -tulpn", "ip", "ifconfig"], a: 1, r: "ss (Socket Statistics) with -tulpn shows active listening ports and PIDs."},
-            {q: "How to update package lists in Ubuntu?", o: ["apt upgrade", "apt update", "apt install", "apt list"], a: 1, r: "apt update fetches the latest package metadata from repositories."},
-            {q: "What is the standard loopback IP address?", o: ["0.0.0.0", "192.168.1.1", "127.0.0.1", "8.8.8.8"], a: 2, r: "127.0.0.1 always refers to your own local machine (localhost)."},
-            {q: "How to change a file's owner?", o: ["chown", "chmod", "chgrp", "chuser"], a: 0, r: "chown = Change Owner."},
-            {q: "Which command searches text patterns inside files?", o: ["find", "search", "grep", "locate"], a: 2, r: "grep is the standard text-pattern search utility."},
-            
-            // Networking & HTTP
-            {q: "What is the default port for HTTP traffic?", o: ["22", "80", "443", "3306"], a: 1, r: "HTTP = 80, HTTPS = 443."},
-            {q: "What is the default port for HTTPS traffic?", o: ["80", "443", "22", "8080"], a: 1, r: "HTTPS uses Port 443 for TLS/SSL encryption."},
-            {q: "HTTP Status 200 means?", o: ["Error", "OK / Success", "Forbidden", "Moved"], a: 1, r: "200 indicates the request was successful."},
-            {q: "HTTP Status 404 means?", o: ["Found", "Not Found", "Server Error", "Redirect"], a: 1, r: "404 means the requested resource does not exist on the server."},
-            {q: "HTTP Status 500 means?", o: ["Success", "Forbidden", "Internal Server Error", "Timeout"], a: 2, r: "500 usually indicates a backend application crash or syntax error."},
-            {q: "What does DNS (Domain Name System) do?", o: ["Translates domain names to IP addresses", "Translates IPs to MAC addresses", "Encrypts traffic", "Blocks hackers"], a: 0, r: "DNS maps human-readable names (like google.com) to numerical IPs."},
-            {q: "Which command-line tool is best for testing API endpoints?", o: ["npm", "curl", "git", "ls"], a: 1, r: "curl performs network requests to APIs and web servers directly from the terminal."},
-            {q: "Which protocol is connection-oriented and reliable?", o: ["TCP", "UDP", "IP", "ICMP"], a: 0, r: "TCP establishes a handshake (3-way) to guarantee reliable data transfer."},
-            {q: "Which protocol is connectionless and faster (used for video/DNS)?", o: ["TCP", "UDP", "SSH", "HTTP"], a: 1, r: "UDP sends packets without waiting for confirmation, sacrificing reliability for speed."},
-            {q: "What port does MySQL typically listen on by default?", o: ["80", "443", "3306", "22"], a: 2, r: "MySQL uses 3306. PostgreSQL usually uses 5432."},
-            
-            // Docker
-            {q: "What is a Docker Image?", o: ["The running application", "A configuration file", "A read-only blueprint/template", "A virtual machine"], a: 2, r: "Image = Read-only Blueprint; Container = Running Instance of that blueprint."},
-            {q: "Which command builds a Docker image from a Dockerfile?", o: ["docker run", "docker build", "docker push", "docker pull"], a: 1, r: "docker build reads the Dockerfile and executes the steps to bake the image."},
-            {q: "What is the correct filename for a Dockerfile?", o: ["dockerfile.txt", "docker.json", "Dockerfile (no extension)", "docker.yaml"], a: 2, r: "It is exactly 'Dockerfile' with a capital D and zero file extensions."},
-            {q: "What is the difference between RUN and CMD in a Dockerfile?", o: ["They are the same", "RUN executes at build-time; CMD executes at run-time", "CMD is at build-time", "Neither executes code"], a: 1, r: "RUN installs things into the image. CMD is the default command that starts the app when the container boots."},
-            {q: "How do you map port 8080 on your laptop to port 80 inside the container?", o: ["-p 8080:80", "-p 80:8080", "-map 8080", "-link 8080"], a: 0, r: "The syntax is always 'HostPort:ContainerPort'."},
-            {q: "What does the '-d' flag do in 'docker run -d'?", o: ["Deletes the container", "Runs in Detached mode (background)", "Debug mode", "Downloads the image"], a: 1, r: "Detached mode keeps your terminal free while the container runs in the background."},
-            {q: "Which command shows all containers, including stopped ones?", o: ["docker ps", "docker images", "docker ps -a", "docker show all"], a: 2, r: "'docker ps' shows active containers. Adding '-a' (all) shows stopped/crashed ones too."},
-            {q: "What is the purpose of the '.dockerignore' file?", o: ["Hides files from the internet", "Excludes local files (like node_modules) from being copied into the build", "Deletes old containers", "Configures networking"], a: 1, r: "It keeps your Docker images small by preventing unnecessary local files from being sent to the Docker daemon."},
-            {q: "Where are public Docker images officially stored?", o: ["GitHub", "Docker Hub", "AWS S3", "Google Drive"], a: 1, r: "Docker Hub is the primary public registry (app store) for container images."},
-            {q: "What tool manages multi-container applications (like Node + MySQL) via a YAML file?", o: ["Docker Compose", "Docker Swarm", "Git", "Nginx"], a: 0, r: "Docker Compose uses a docker-compose.yml file to boot up entire environments at once."},
-            {q: "What is a Docker Volume used for?", o: ["Increasing sound", "Persistent data storage that survives container deletion", "A specific command", "A process limit"], a: 1, r: "Volumes keep data safe. If a database container is deleted, the data inside the Volume remains intact."},
-            {q: "How do you open an interactive terminal inside a running container?", o: ["docker enter", "docker exec -it <id> sh", "ssh container", "docker open"], a: 1, r: "'exec' runs a command in an active container. '-it' makes it interactive. 'sh' opens the shell."},
-            
-            // Git & File Extensions
-            {q: "Which command creates a new local Git repository?", o: ["git start", "git init", "git clone", "git commit"], a: 1, r: "git init creates the hidden .git tracking folder."},
-            {q: "How do you stage all modified files for a commit?", o: ["git add .", "git stage all", "git commit -a", "git sync"], a: 0, r: "git add . moves all changes in the current directory into the staging area."},
-            {q: "What does 'git clone' do?", o: ["Copies a file", "Downloads an entire remote repository and its history to your local machine", "Pushes code to GitHub", "Deletes a repository"], a: 1, r: "Clone duplicates the remote project locally."},
-            {q: "What does 'git pull' essentially do?", o: ["Fetches remote changes and merges them into your local branch", "Uploads code", "Deletes the branch", "Only downloads metadata"], a: 0, r: "git pull is a combination of git fetch followed immediately by git merge."},
-            {q: "What file extension is used for standard JavaScript files?", o: [".java", ".js", ".html", ".css"], a: 1, r: "JavaScript files use .js."},
-            {q: "What does JSON stand for?", o: ["Java Source Object Network", "JavaScript Object Notation", "Java System Object Node", "JScript Oriented Net"], a: 1, r: "JSON is the standard format for structured data transfer."},
-            {q: "What extension do Docker Compose and Kubernetes configuration files use?", o: [".json", ".xml", ".yaml / .yml", ".ini"], a: 2, r: "YAML is standard for modern cloud-native configuration files due to its readability."},
-            {q: "Which file usually contains project dependencies in a Node.js project?", o: ["index.html", "package.json", "Dockerfile", ".gitignore"], a: 1, r: "package.json tracks the project's required npm libraries."},
-            {q: "What is a .md file used for?", o: ["Music Data", "Markdown documentation (like a README)", "Machine Docker", "Metadata"], a: 1, r: "Markdown (.md) is used to format text beautifully with simple symbols on platforms like GitHub."},
-            
-            // Advanced Linux & Cloud Mix
-            {q: "How do you temporarily borrow root (admin) privileges in Linux?", o: ["Use the 'su' command", "Prefix the command with 'sudo'", "Log out and log in as root", "Use 'admin' flag"], a: 1, r: "sudo (Superuser Do) safely executes a single command with root powers."},
-            {q: "What does '0.0.0.0' represent in networking?", o: ["The loopback address", "Binds to all available network interfaces on the host", "A dead IP address", "The router's address"], a: 1, r: "Binding a server to 0.0.0.0 means it will accept connections from the outside world, not just localhost."},
-            {q: "Which command shows you your exact current username?", o: ["whoami", "id", "pwd", "ls"], a: 0, r: "whoami returns the effective user ID name."},
-            {q: "What does 'cat > file.txt' do?", o: ["Reads the file", "Takes standard input from your keyboard and writes it directly to the file", "Deletes the file", "Throws an error"], a: 1, r: "The '>' operator redirects the input stream directly into the file."}
+            // --- LINUX NAVIGATION & FILES (1-15) ---
+            { q: "What does 'pwd' stand for?", o: ["Print Word Document", "Print Working Directory", "Password", "Private Web Domain"], a: 1, r: "pwd shows your current folder path in the terminal." },
+            { q: "Which command takes you directly to your home directory?", o: ["cd /", "cd ..", "cd ~", "cd -"], a: 2, r: "The tilde (~) represents the current user's home directory." },
+            { q: "How do you list all files, including hidden dot files?", o: ["ls -l", "ls -a", "ls -h", "dir"], a: 1, r: "-a stands for 'all', revealing hidden files." },
+            { q: "What is the purpose of the 'mkdir -p' flag?", o: ["Make private directory", "Make parent directories if they don't exist", "Make public directory", "Make path"], a: 1, r: "-p allows creating deep nested folders like mkdir -p a/b/c without errors." },
+            { q: "Which command updates file timestamps or creates an empty file?", o: ["new", "create", "touch", "make"], a: 2, r: "touch is standard for creating blank files." },
+            { q: "How do you forcefully delete a folder and all its contents without confirmation?", o: ["rm -f", "rmdir", "rm -rf", "delete -r"], a: 2, r: "rm -rf (recursive + force) completely wipes directories." },
+            { q: "What is the difference between 'cp' and 'mv'?", o: ["cp copies, mv deletes", "cp copies leaving the original, mv renames or moves deleting the original", "mv is for folders only", "cp requires sudo"], a: 1, r: "mv literally moves a file. In the same folder, moving a file acts as a rename." },
+            { q: "Which tool is best for reading a 10GB log file safely?", o: ["cat", "nano", "less", "vi"], a: 2, r: "less paginates the file, preventing your terminal from crashing out of RAM." },
+            { q: "What does 'tail -f' do?", o: ["Follows a file, streaming new lines live as they are written", "Deletes the tail of a file", "Formats the file", "Finds files"], a: 0, r: "Essential for watching live application logs." },
+            { q: "What does the pipe '|' operator do?", o: ["Stops a command", "Sends output of the left command as input to the right command", "Saves to a file", "Runs background tasks"], a: 1, r: "Piping chains commands together, e.g., cat file.txt | grep error." },
+            { q: "Which command searches for a specific text pattern inside files?", o: ["find", "locate", "grep", "search"], a: 2, r: "Global Regular Expression Print (grep) is the standard text searcher." },
+            { q: "Which core Linux folder contains system-wide configurations?", o: ["/bin", "/var", "/etc", "/home"], a: 2, r: "/etc is the 'brain' containing configurations like nginx.conf." },
+            { q: "Where are system and application logs typically stored?", o: ["/etc/logs", "/var/log", "/home/logs", "/root"], a: 1, r: "/var/log holds dynamic log files." },
+            { q: "What does 'cat > file.txt' do?", o: ["Reads the file", "Takes your keyboard typing and redirects it to overwrite the file", "Deletes the file", "Appends to the file"], a: 1, r: "> redirects standard input directly into the file." },
+            { q: "How do you check free disk space on your hard drive?", o: ["free -m", "df -h", "du -sh", "top"], a: 1, r: "df (Disk Free) shows mounted partition space." },
+
+            // --- PERMISSIONS, USERS & PROCESSES (16-30) ---
+            { q: "What does 'chmod 755' assign?", o: ["Read-only for all", "User: rwx, Group: r-x, Others: r-x", "Full access to all", "Locked"], a: 1, r: "7 (4+2+1) is full access. 5 (4+1) is read+execute." },
+            { q: "Why is 'chmod 777' dangerous?", o: ["It deletes the file", "It gives anyone on the server power to read, edit, or execute the file", "It encrypts the file", "It locks the file"], a: 1, r: "777 grants full world access. Never use it in production." },
+            { q: "What command changes the owner of a file?", o: ["chmod", "chown", "chgrp", "su"], a: 1, r: "chown = Change Owner." },
+            { q: "What is 'sudo' used for?", o: ["Switching users", "Temporarily executing a command with root (admin) privileges", "Downloading files", "System updates"], a: 1, r: "SuperUser DO borrows root access." },
+            { q: "How do you add user 'rahul' to the 'docker' group safely?", o: ["usermod -G docker rahul", "usermod -aG docker rahul", "groupadd docker rahul", "useradd rahul docker"], a: 1, r: "-aG (Append Group) ensures he isn't removed from his other groups." },
+            { q: "Which file securely stores encrypted user passwords in Ubuntu?", o: ["/etc/passwd", "/etc/shadow", "/etc/security", "/var/pass"], a: 1, r: "/etc/shadow contains the actual cryptographic hashes." },
+            { q: "What does 'kill -9' do?", o: ["Gracefully stops an app", "Forcefully sends SIGKILL, terminating the process immediately", "Pauses the process", "Restarts the server"], a: 1, r: "-9 is the ultimate kill switch that cannot be ignored by the app." },
+            { q: "Which tool provides a live, interactive dashboard of CPU and RAM usage?", o: ["ps", "df", "top / htop", "grep"], a: 2, r: "top (and the better htop) shows live system metrics." },
+            { q: "What does 'free -m' display?", o: ["Disk space", "Available CPU", "Available RAM in Megabytes", "Network bandwidth"], a: 2, r: "free shows physical and swap memory." },
+            { q: "What does the 'nohup' command do?", o: ["Hides logs", "Prevents a background process from dying when you close your SSH terminal", "Stops hackers", "Updates packages"], a: 1, r: "No Hangup ensures long-running scripts survive session disconnections." },
+            { q: "What is the primary difference between 'su user' and 'su - user'?", o: ["There is no difference", "The '-' loads the target user's full environment profile and home directory", "The '-' skips the password prompt", "The '-' deletes temporary files"], a: 1, r: "The dash creates a true login shell." },
+            { q: "Which command shows the exact path to an installed program (e.g., node)?", o: ["find node", "locate node", "which node", "where node"], a: 2, r: "'which' searches your system PATH for the executable." },
+            { q: "How do you safely edit the sudoers file?", o: ["nano /etc/sudoers", "vim /etc/sudoers", "visudo", "sudo edit"], a: 2, r: "visudo checks for syntax errors before saving, preventing admin lockouts." },
+            { q: "What is 'apt' in Ubuntu?", o: ["A web server", "A text editor", "The Advanced Package Tool (Package Manager)", "A network protocol"], a: 2, r: "apt is used to install, update, and remove software." },
+            { q: "If you see permission 'drwxr-xr-x', what does the 'd' mean?", o: ["Deleted", "Directory (Folder)", "Document", "Default"], a: 1, r: "The 'd' indicates the item is a directory." },
+
+            // --- NETWORKING & PROTOCOLS (31-45) ---
+            { q: "What is an IP address?", o: ["A website name", "A unique numerical address assigned to a device on a network", "A file extension", "An encryption key"], a: 1, r: "It acts as the physical address for data delivery." },
+            { q: "What is the standard loopback IP address (Localhost)?", o: ["0.0.0.0", "192.168.1.1", "127.0.0.1", "8.8.8.8"], a: 2, r: "127.0.0.1 always routes back to your own machine." },
+            { q: "What does DNS do?", o: ["Encrypts passwords", "Translates human-readable domain names (like google.com) to IP addresses", "Blocks viruses", "Hosts websites"], a: 1, r: "DNS is the internet's phonebook." },
+            { q: "What is a network Port?", o: ["A physical USB slot", "A virtual door/channel identifying a specific application on a server", "An IP address", "A security firewall"], a: 1, r: "Ports direct traffic. (e.g., Web traffic to 80, SSH to 22)." },
+            { q: "What is the default port for standard HTTP web traffic?", o: ["22", "80", "443", "8080"], a: 1, r: "HTTP listens on port 80." },
+            { q: "What is the default port for secure HTTPS traffic?", o: ["80", "443", "22", "3306"], a: 1, r: "HTTPS uses port 443 for SSL/TLS encryption." },
+            { q: "What is the default port for SSH (Secure Shell)?", o: ["21", "22", "23", "80"], a: 1, r: "SSH standard is port 22." },
+            { q: "Which protocol establishes a reliable 3-way handshake connection?", o: ["UDP", "ICMP", "TCP", "DNS"], a: 2, r: "TCP ensures packets arrive perfectly in order." },
+            { q: "Which protocol is connectionless and used for fast video streaming?", o: ["TCP", "HTTP", "UDP", "SSH"], a: 2, r: "UDP fires packets blindly for maximum speed." },
+            { q: "What does the 'ping' command do?", o: ["Downloads a file", "Sends ICMP echo requests to test if a server is online and reachable", "Checks open ports", "Encrypts data"], a: 1, r: "Ping tests basic network connectivity." },
+            { q: "What tool acts as a command-line web browser to test APIs?", o: ["git", "curl", "npm", "ssh"], a: 1, r: "curl transfers data to/from servers." },
+            { q: "What does 'curl -I' do?", o: ["Installs software", "Fetches only the HTTP response headers (Status Code) without the HTML body", "Ignores errors", "Inspects IP"], a: 1, r: "-I (HEAD request) is perfect for quick status checks." },
+            { q: "What does HTTP Status Code 200 mean?", o: ["Error", "Success / OK", "Not Found", "Redirect"], a: 1, r: "200 indicates a perfect request." },
+            { q: "What does HTTP Status Code 404 mean?", o: ["Server Crash", "Unauthorized", "Not Found", "Bad Gateway"], a: 2, r: "The server is fine, but the requested URL doesn't exist." },
+            { q: "What does HTTP Status Code 500 mean?", o: ["Success", "Internal Server Error (Backend Code Crash)", "Forbidden", "Moved"], a: 1, r: "500 means the server caught the request, but the app logic failed." },
+
+            // --- WEB SERVERS (Nginx/Apache) & SSH (46-60) ---
+            { q: "What is Nginx primarily used for?", o: ["Database management", "High-performance Web Server and Reverse Proxy", "Version control", "Operating system"], a: 1, r: "Nginx handles thousands of concurrent web connections efficiently." },
+            { q: "What is the main architectural difference between Nginx and Apache?", o: ["Apache is event-driven; Nginx is process-driven", "Nginx is event-driven/asynchronous; Apache traditionally creates a new process per connection", "Nginx only works on Windows", "They are identical"], a: 1, r: "Nginx uses a non-blocking loop, making it less memory-heavy than Apache under load." },
+            { q: "By default in Ubuntu, where do Nginx and Apache look for the 'index.html' file?", o: ["/home/ubuntu/web", "/etc/nginx/html", "/var/www/html", "/usr/share/web"], a: 2, r: "/var/www/html is the universal default document root." },
+            { q: "Which command starts the Nginx service?", o: ["systemctl start nginx", "run nginx", "nginx start", "service enable nginx"], a: 0, r: "systemctl is the modern tool to manage systemd services." },
+            { q: "Which command checks if Nginx is running?", o: ["nginx -check", "systemctl status nginx", "ps nginx", "whereis nginx"], a: 1, r: "status shows if it is 'active (running)' or 'failed'." },
+            { q: "What is the safest way to apply a new Nginx configuration without dropping live users?", o: ["systemctl restart nginx", "systemctl reload nginx", "systemctl stop nginx", "reboot"], a: 1, r: "Reload applies configs gracefully. Restart completely kills the process first." },
+            { q: "Which command checks Nginx configuration files for syntax errors?", o: ["nginx -t", "nginx --check", "systemctl verify nginx", "cat nginx.conf"], a: 0, r: "nginx -t tests the config. Always run this before reloading." },
+            { q: "What command generates a new SSH key pair?", o: ["ssh-new", "ssh-keygen", "ssh-create", "key-gen"], a: 1, r: "ssh-keygen creates your public/private lock and key." },
+            { q: "Where are SSH keys typically stored on a Linux machine?", o: ["/etc/ssh/", "~/.ssh/", "/var/keys/", "/root/ssh/"], a: 1, r: "They live in the hidden .ssh folder inside your home directory." },
+            { q: "Which key do you share with the remote server (e.g., paste into GitHub or AWS)?", o: ["Private Key", "Public Key", "Both", "Neither"], a: 1, r: "The Public Key is the lock. The Private Key is the key in your pocket. NEVER share the private key." },
+            { q: "What file extension is commonly used for AWS downloaded private keys?", o: [".ssh", ".txt", ".pem", ".key"], a: 2, r: "Privacy Enhanced Mail (.pem) is standard for AWS keys." },
+            { q: "How do you specify a specific .pem key when connecting via SSH?", o: ["ssh -key file.pem", "ssh -i file.pem ubuntu@ip", "ssh file.pem@ip", "ssh -p file.pem"], a: 1, r: "The '-i' flag stands for Identity File." },
+            { q: "Which command safely copies your public key to a remote server?", o: ["ssh-copy-id", "scp-key", "send-ssh", "cp-remote"], a: 0, r: "ssh-copy-id automatically appends your key to the server's authorized_keys file." },
+            { q: "What does the command 'ss -tulpn' show?", o: ["Disk usage", "Listening TCP/UDP ports and their Process IDs", "System users", "Website traffic"], a: 1, r: "It's the ultimate command to see what apps are blocking which ports." },
+            { q: "What happens if you run a Node app on Port 80 without root privileges?", o: ["It works normally", "It crashes because ports below 1024 require root (sudo) access", "It redirects to 8080", "It runs slowly"], a: 1, r: "Privileged ports (1-1023) require admin rights to bind." },
+
+            // --- GIT & GITHUB (61-75) ---
+            { q: "What is the technical difference between Git and GitHub?", o: ["They are identical", "Git is a local version control software; GitHub is a cloud hosting platform for Git repositories", "GitHub is for Windows only", "Git is deprecated"], a: 1, r: "Git tracks time locally. GitHub is the cloud backup and collaboration website." },
+            { q: "Which command initializes a new, hidden .git tracking folder?", o: ["git start", "git clone", "git init", "git new"], a: 2, r: "git init turns a boring folder into a Git repository." },
+            { q: "What does 'git clone <url>' do?", o: ["Uploads code", "Downloads an entire remote repository and its history to your machine", "Deletes a repository", "Creates a branch"], a: 1, r: "Clone duplicates the remote project locally." },
+            { q: "Which command shows you modified, untracked, or staged files?", o: ["git status", "git log", "git show", "git diff"], a: 0, r: "git status is your daily compass for checking file states." },
+            { q: "What does 'git add .' do?", o: ["Commits code", "Pushes code to GitHub", "Moves ALL modified/untracked files into the Staging Area", "Deletes files"], a: 2, r: "The dot (.) means 'everything here'. It prepares files for the snapshot." },
+            { q: "What command permanently records the staged snapshot to local history?", o: ["git save", "git commit -m 'message'", "git push", "git log"], a: 1, r: "Commit permanently saves the state. The -m attaches a descriptive message." },
+            { q: "What is the purpose of the '.gitignore' file?", o: ["To hide the folder from Windows", "To tell Git which files (like passwords or node_modules) should NEVER be tracked", "To ignore merge conflicts", "To bypass errors"], a: 1, r: "It prevents sensitive or heavy files from entering the repo." },
+            { q: "What does 'git log --oneline' show?", o: ["A compressed, single-line timeline of past commits", "The current file code", "The branch name", "Network logs"], a: 0, r: "It makes reading the project history fast and easy." },
+            { q: "What is a Git Branch?", o: ["A new file", "An isolated, parallel timeline of your codebase used for safe experimentation", "A folder", "A remote server"], a: 1, r: "Branches let you build features without breaking the 'main' code." },
+            { q: "Which command creates a new branch AND switches you to it instantly?", o: ["git branch new", "git switch -c <name>", "git merge", "git new"], a: 1, r: "switch -c (or checkout -b) creates and hops to the branch." },
+            { q: "What does 'git merge' do?", o: ["Deletes a branch", "Uploads code", "Combines the code from a specified branch into your current branch", "Undoes a commit"], a: 2, r: "Merging integrates separate timelines back together." },
+            { q: "What causes a 'Merge Conflict'?", o: ["No internet", "When two branches modify the exact same line of the exact same file differently", "When a file is too large", "Using the wrong password"], a: 1, r: "Git pauses and asks human intervention when identical lines conflict." },
+            { q: "What does 'git push origin main' do?", o: ["Downloads code", "Uploads your local 'main' branch commits to the remote 'origin' (GitHub)", "Deletes main", "Merges main"], a: 1, r: "Push sends your local database updates to the cloud." },
+            { q: "What does 'git pull' actually do under the hood?", o: ["Deletes files", "Runs git fetch followed by git merge", "Pushes code", "Creates a Pull Request"], a: 1, r: "It downloads remote changes and instantly tries to merge them into your local workspace." },
+            { q: "What is a 'Pull Request' (PR)?", o: ["A native Git terminal command", "A platform feature (like on GitHub) asking teammates to review and approve your branch before it merges into main", "A request to delete code", "A firewall rule"], a: 1, r: "PRs are the standard corporate quality-gate for code review." },
+
+            // --- DOCKER & DOCKERFILE (76-90) ---
+            { q: "What problem does Docker primarily solve?", o: ["Slow internet", "The 'It works on my machine' syndrome by packaging the app and its environment together", "HTML syntax errors", "Database security"], a: 1, r: "Docker ensures the app runs identically on a laptop and a cloud server." },
+            { q: "What is a Dockerfile?", o: ["A JSON config", "A plain-text recipe of instructions used to build a Docker Image", "A virtual machine", "A web server"], a: 1, r: "It is the blueprint script for your container." },
+            { q: "What is the correct file extension for a Dockerfile?", o: [".txt", ".yaml", ".docker", "It has NO extension"], a: 3, r: "It is exactly 'Dockerfile' with a capital D." },
+            { q: "In a Dockerfile, what does 'FROM node:18-alpine' do?", o: ["Names the author", "Defines the base Operating System and pre-installed software to start from", "Downloads from GitHub", "Runs a node script"], a: 1, r: "Every Dockerfile must begin with FROM." },
+            { q: "In a Dockerfile, what does 'WORKDIR /app' do?", o: ["Deletes /app", "Acts like 'cd /app', setting the context for all subsequent commands", "Downloads an app", "Creates a zip file"], a: 1, r: "It ensures COPY and RUN commands happen in the right place." },
+            { q: "What is the critical difference between RUN and CMD in a Dockerfile?", o: ["They are identical", "RUN executes during the image BUILD; CMD executes later when the container STARTS", "CMD is faster", "RUN is only for Windows"], a: 1, r: "RUN bakes the cake (installing). CMD eats the cake (running the app)." },
+            { q: "Why do we 'COPY package.json' BEFORE running 'npm install' in a Dockerfile?", o: ["It looks nicer", "To utilize Docker Layer Caching so npm install is skipped if dependencies haven't changed", "To avoid viruses", "To make the file smaller"], a: 1, r: "Layer caching saves massive amounts of time on rebuilds." },
+            { q: "What command bakes the Dockerfile into an Image?", o: ["docker run", "docker make", "docker build -t my-app .", "docker push"], a: 2, r: "Build reads the file. -t tags it with a name." },
+            { q: "What is the difference between an Image and a Container?", o: ["They are the same", "An Image is the read-only blueprint; a Container is the running, active instance of that blueprint", "A container is smaller", "An image is for websites only"], a: 1, r: "You build one Image, but you can run 100 Containers from it." },
+            { q: "In 'docker run -p 8080:80', which port belongs to the Host (Your Laptop)?", o: ["80", "8080", "Both", "Neither"], a: 1, r: "Syntax is ALWAYS HostPort:ContainerPort." },
+            { q: "What does the '-d' flag do in 'docker run -d'?", o: ["Deletes it", "Downloads it", "Runs the container in Detached mode (background)", "Debug mode"], a: 2, r: "Detached keeps your terminal free while the app runs." },
+            { q: "Which command shows ALL containers, including ones that crashed?", o: ["docker ps", "docker images", "docker ps -a", "docker show"], a: 2, r: "ps shows active; ps -a shows ALL." },
+            { q: "How do you open an interactive terminal inside a running container?", o: ["docker enter", "docker exec -it <id> sh", "ssh container", "docker attach"], a: 1, r: "exec runs a command (sh) interactively (-it) inside the box." },
+            { q: "What is a Docker Volume?", o: ["Sound setting", "A persistent storage mechanism that keeps data safe even if the container is deleted", "A network rule", "A large image"], a: 1, r: "Volumes are mandatory for databases so data isn't lost on restart." },
+            { q: "What is Docker Compose?", o: ["A music app", "A tool that uses a YAML file to configure and boot up multi-container applications simultaneously", "A git feature", "A cloud provider"], a: 1, r: "Compose orchestrates apps like Node + MySQL + Redis together." },
+
+            // --- EXTENSIONS & MIXED CLOUD CONCEPTS (91-100) ---
+            { q: "What file extension is used for standard JavaScript?", o: [".java", ".js", ".ts", ".jsx"], a: 1, r: "JavaScript is .js." },
+            { q: "What does JSON stand for?", o: ["Java Source Object Network", "JavaScript Object Notation", "Java Sync Object Node", "JScript Network"], a: 1, r: "JSON is the global standard for API data." },
+            { q: "What file extension does Docker Compose use?", o: [".json", ".xml", ".yml / .yaml", ".ini"], a: 2, r: "YAML is highly readable and standard for DevOps configs." },
+            { q: "What file tracks dependencies in a Node.js project?", o: ["index.html", "package.json", "requirements.txt", "pom.xml"], a: 1, r: "package.json acts as the manifest for npm." },
+            { q: "What file extension represents a standard bash shell script?", o: [".bat", ".exe", ".sh", ".cmd"], a: 2, r: ".sh scripts are executed in Linux terminals." },
+            { q: "What is a .md file?", o: ["Music Data", "Markdown file (used for format-rich README documentation)", "Metadata", "Machine Docker"], a: 1, r: "Markdown powers GitHub READMEs." },
+            { q: "Which image format is mathematically scalable (Vector) and perfect for logos?", o: [".jpg", ".png", ".svg", ".gif"], a: 2, r: "SVG (Scalable Vector Graphics) never pixelates." },
+            { q: "Which image format supports transparent backgrounds?", o: [".jpg", ".bmp", ".png", ".tiff"], a: 2, r: "PNG has an alpha channel for transparency." },
+            { q: "What happens if a Dockerfile does not have an EXPOSE instruction?", o: ["The container crashes", "The container still runs, but EXPOSE acts as documentation for engineers to know which port the app uses internally", "Docker deletes it", "The port maps automatically"], a: 1, r: "EXPOSE doesn't actually open the firewall; it's mostly documentation. You still need -p to map it." },
+            { q: "Can you run a Dockerfile directly on standard GitHub Pages?", o: ["Yes", "No, GitHub Pages only hosts static files (HTML/CSS). Docker requires a real server to run.", "Only with Pro account", "Only on weekends"], a: 1, r: "Docker needs a daemon (CPU/RAM). GH Pages is just a static file server." }
         ];
 
-        let userChoices = new Array(50).fill(null);
-        let timeLeft = 3600;
+        let userChoices = new Array(100).fill(null);
+        let timeLeft = 3600; // 60 minutes
         let timerInterval;
 
         function initializeExam() {
@@ -245,8 +298,8 @@
             // Render Navigator
             const nav = document.getElementById('grid-navigator');
             let navHTML = '';
-            for(let i=0; i<50; i++) {
-                navHTML += `<button id="nav-${i}" onclick="jumpTo(${i})" class="p-2 bg-slate-100 border border-slate-200 hover:bg-slate-200 text-slate-600 rounded-lg text-xs font-bold transition-all">${i+1}</button>`;
+            for(let i=0; i<100; i++) {
+                navHTML += `<button id="nav-${i}" onclick="jumpTo(${i})" class="p-1.5 bg-slate-100 border border-slate-200 hover:bg-slate-200 text-slate-600 rounded-md text-[10px] font-bold transition-all">${i+1}</button>`;
             }
             nav.innerHTML = navHTML;
             
@@ -266,7 +319,7 @@
             const timerEl = document.getElementById('timer');
             timerEl.innerText = `${mins}:${secs < 10 ? '0'+secs : secs}`;
             
-            if(timeLeft < 300) { // Under 5 minutes, turn red
+            if(timeLeft < 300) { 
                 timerEl.classList.remove('bg-slate-900');
                 timerEl.classList.add('bg-red-600', 'animate-pulse');
             }
@@ -280,10 +333,10 @@
         function recordChoice(q, o) {
             userChoices[q] = o;
             // Update Navigator Style
-            document.getElementById(`nav-${q}`).className = "p-2 bg-indigo-600 text-white rounded-lg text-xs font-bold shadow-sm transition-all";
+            document.getElementById(`nav-${q}`).className = "p-1.5 bg-indigo-600 text-white rounded-md text-[10px] font-bold shadow-sm transition-all";
             // Update Counter
             const answered = userChoices.filter(a => a !== null).length;
-            document.getElementById('answeredCounter').innerText = `${answered} / 50 Answered`;
+            document.getElementById('answeredCounter').innerText = `${answered} / 100 Answered`;
         }
 
         function evaluateExam() {
@@ -310,20 +363,19 @@
             document.getElementById('screen-exam').classList.add('hidden');
             document.getElementById('timer').classList.add('hidden');
             document.getElementById('screen-results').classList.remove('hidden');
-            document.getElementById('scoreMetric').innerText = `${score} / 50`;
+            document.getElementById('scoreMetric').innerText = `${score} / 100`;
             
-            // Provide dynamic feedback based on score
-            const percent = (score / 50) * 100;
+            const percent = score; // Since it's exactly 100 questions, score == percentage
             let title = "", desc = "";
-            if(percent < 50) {
-                title = "Keep Practicing!";
-                desc = "You're getting there, but you need more hands-on practice with Linux flags and Docker definitions. Review the explanations below carefully.";
-            } else if(percent < 80) {
-                title = "Solid Engineer!";
-                desc = "Great job! You have a strong grasp of DevOps fundamentals. Review the ones you missed to perfect your command-line logic.";
+            if(percent < 60) {
+                title = "Keep Practicing! (" + percent + "%)";
+                desc = "This is a massive exam, so don't get discouraged! Review the explanations carefully. Focus on Linux flags and Docker fundamentals.";
+            } else if(percent < 85) {
+                title = "Solid Engineer! (" + percent + "%)";
+                desc = "Great job! You have a very strong grasp of DevOps. Review the tricky ones you missed to perfect your command-line logic.";
             } else {
-                title = "Master Architect!";
-                desc = "Incredible score! You have mastered Linux, Git workflows, Docker architecture, and Networking. You are absolutely crushing it.";
+                title = "Master Architect! (" + percent + "%)";
+                desc = "Incredible score! You have mastered Linux, Git, Docker, and Networking. You are absolutely crushing it.";
             }
             document.getElementById('feedbackTitle').innerText = title;
             document.getElementById('feedbackDesc').innerText = desc;
@@ -334,15 +386,14 @@
         function dispatchReportEmail() {
             const name = document.getElementById('studentName').value;
             const score = userChoices.filter((a, i) => a === quizData[i].a).length;
-            const percent = ((score / 50) * 100).toFixed(1);
             
-            let body = `DEVOPS 50-QUESTION EXAM RESULTS%0D%0A`;
+            let body = `100-QUESTION DEVOPS EXAM RESULTS%0D%0A`;
             body += `---------------------------------%0D%0A`;
             body += `Student: ${name}%0D%0A`;
-            body += `Score: ${score} / 50 (${percent}%)%0D%0A`;
+            body += `Score: ${score} / 100%0D%0A`;
             body += `Date: ${new Date().toLocaleString()}%0D%0A`;
             
-            window.location.href = `mailto:kuldeephimachal83@gmail.com?subject=Grand Mix Exam Results: ${name}&body=${body}`;
+            window.location.href = `mailto:kuldeephimachal83@gmail.com?subject=Grand Mix 100 Exam: ${name}&body=${body}`;
         }
     </script>
 </body>
