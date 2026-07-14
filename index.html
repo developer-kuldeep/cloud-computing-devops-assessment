@@ -3,11 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DevOps & Cloud Engineering Assessment</title>
+    <title>DevOps Grand Mix Assessment</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700;800&family=Fira+Code:wght@400;600&display=swap');
+        
         body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; }
         .watermark { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(-45deg); font-size: 5rem; font-weight: 900; color: rgba(15, 23, 42, 0.03); z-index: -1; pointer-events: none; user-select: none; }
     </style>
@@ -19,7 +20,7 @@
     <!-- Navigation -->
     <nav class="bg-white border-b border-slate-200 sticky top-0 z-50">
         <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
-            <h1 class="font-bold text-slate-900">DevOps & Cloud Assessment</h1>
+            <h1 class="font-bold text-slate-900">DevOps Grand Mix Assessment</h1>
             <div id="timer" class="font-mono font-bold bg-slate-900 text-white px-4 py-1.5 rounded-lg text-sm">60:00</div>
         </div>
     </nav>
@@ -27,22 +28,22 @@
     <main class="flex-grow max-w-7xl mx-auto px-4 py-8 w-full grid grid-cols-1 lg:grid-cols-12 gap-8">
         
         <!-- Registration -->
-        <div id="screen-start" class="col-span-12 bg-white p-12 rounded-2xl border border-slate-200 text-center max-w-lg mx-auto mt-10">
-            <h2 class="text-3xl font-bold mb-4">50 Question DevOps Exam</h2>
+        <div id="screen-start" class="col-span-12 bg-white p-12 rounded-2xl border border-slate-200 text-center max-w-lg mx-auto mt-10 shadow-sm">
+            <h2 class="text-3xl font-bold mb-4 text-slate-800">50 Question DevOps Exam</h2>
             <p class="text-slate-500 mb-6">Test your knowledge across Linux, Networking, Git, and Docker.</p>
             <input type="text" id="studentName" placeholder="Enter Full Name" class="w-full p-4 border border-slate-300 rounded-xl mb-4 text-center">
-            <button onclick="initializeExam()" class="w-full py-4 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700">Start Exam (60 Mins)</button>
+            <button onclick="initializeExam()" class="w-full py-4 bg-indigo-600 text-white font-bold rounded-xl hover:bg-indigo-700 transition-all">Start Exam (60 Mins)</button>
         </div>
 
         <!-- Exam Workspace -->
         <div id="screen-quiz" class="hidden col-span-12 lg:col-span-8 space-y-6">
             <div id="questions-workspace" class="space-y-6"></div>
-            <button onclick="evaluateExam()" class="w-full py-4 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-700">Submit Answers</button>
+            <button onclick="evaluateExam()" class="w-full py-4 bg-emerald-600 text-white font-bold rounded-xl hover:bg-emerald-700 transition-all">Submit Answers</button>
         </div>
 
         <!-- Navigator -->
         <div id="navigator" class="hidden lg:block lg:col-span-4 sticky top-24 h-fit">
-            <div class="bg-white p-6 rounded-2xl border border-slate-200">
+            <div class="bg-white p-6 rounded-2xl border border-slate-200 shadow-sm">
                 <h4 class="font-bold mb-4 text-sm uppercase">Navigator</h4>
                 <div id="grid-navigator" class="grid grid-cols-5 gap-2"></div>
             </div>
@@ -53,7 +54,7 @@
             <div class="bg-white p-8 rounded-2xl text-center shadow-lg border border-slate-200">
                 <h2 class="text-3xl font-bold">Assessment Complete</h2>
                 <div id="scoreMetric" class="text-6xl font-black text-indigo-600 my-6"></div>
-                <button onclick="dispatchReportEmail()" class="py-3 px-6 bg-indigo-600 text-white rounded-xl font-bold">Email Results</button>
+                <button onclick="dispatchReportEmail()" class="py-3 px-6 bg-indigo-600 text-white rounded-xl font-bold hover:bg-indigo-700">Email Results</button>
             </div>
             <div id="review-workspace" class="space-y-4"></div>
         </div>
@@ -64,14 +65,13 @@
         <p class="font-bold text-slate-700">Test Created by DevOps Eng KULDEEP</p>
         <p class="font-mono text-indigo-500">kuldeephimachal83@gmail.com</p>
         <div class="flex justify-center gap-4 mt-3 text-lg">
-            <a href="https://linkedin.com/in/"><i class="fa-brands fa-linkedin"></i></a>
-            <a href="https://github.com/developer-kuldeep"><i class="fa-brands fa-github"></i></a>
+            <a href="https://linkedin.com/in/kuldeep-engineer/" title="LinkedIn"><i class="fa-brands fa-linkedin"></i></a>
+            <a href="https://github.com/developer-kuldeep" title="GitHub"><i class="fa-brands fa-github"></i></a>
         </div>
     </footer>
 
     <script>
         const quizData = [
-            // Sample of topics, expandable to 50
             {q: "What does 'chmod 755' do?", o: ["Full access for all", "User full, others read/execute", "Read only", "Write only"], a: 1, r: "755 gives User full control, while Others get Read+Execute access."},
             {q: "Default port for SSH?", o: ["80", "443", "22", "3306"], a: 2, r: "SSH standard port is 22."},
             {q: "What is 'grep'?", o: ["Search pattern in text", "Rename file", "Delete file", "Copy file"], a: 0, r: "Grep searches for text strings."},
@@ -82,7 +82,6 @@
             {q: "Status 404 means?", o: ["Success", "Not Found", "Error", "Redirect"], a: 1, r: "404 is Not Found."},
             {q: "File extension for Node?", o: [".js", ".py", ".java", ".exe"], a: 0, r: "Node uses .js."},
             {q: "Command to start Nginx?", o: ["start nginx", "systemctl start nginx", "run nginx", "open nginx"], a: 1, r: "Use systemctl to manage services."},
-            // ... (I have generated the logic, you can easily populate the rest of the 50 unique questions here following the pattern)
             {q: "How to stage all files?", o: ["git add .", "git stage", "git commit", "git sync"], a: 0, r: "git add . stages all changes."},
             {q: "JSON full name?", o: ["Java Object Notation", "JavaScript Object Notation", "JScript Object Node", "Java Source Network"], a: 1, r: "JavaScript Object Notation."},
             {q: "Docker image recipe file?", o: ["recipe.txt", "Dockerfile", "config.yml", "docker.json"], a: 1, r: "Dockerfile."},
@@ -98,7 +97,6 @@
             {q: "Default port for HTTPS?", o: ["80", "443", "22", "8080"], a: 1, r: "HTTPS is 443."},
             {q: "Status 500?", o: ["Found", "Error", "Success", "Wait"], a: 1, r: "Server-side error."},
             {q: "Docker ps?", o: ["List images", "List containers", "Delete all", "Restart"], a: 1, r: "Shows containers."},
-            // Adding more to make it a Grand Mix set
             {q: "Which file is for dependencies?", o: ["package.json", "index.html", "Dockerfile", ".gitignore"], a: 0, r: "package.json lists npm deps."},
             {q: "What is the loopback interface?", o: ["eth0", "lo", "wlan0", "docker0"], a: 1, r: "lo is the loopback."},
             {q: "How to switch user in bash?", o: ["su", "chown", "chmod", "kill"], a: 0, r: "su = switch user."},
@@ -110,25 +108,22 @@
             {q: "Command to remove dir?", o: ["rm -rf", "delete", "erase", "rmdir"], a: 0, r: "rm -rf is recursive/force remove."},
             {q: "Who is root?", o: ["User", "Admin", "File", "Process"], a: 1, r: "Root is the admin."},
             {q: "SSH key generation?", o: ["ssh-keygen", "ssh-new", "ssh-create", "ssh-key"], a: 0, r: "ssh-keygen creates keys."},
-            {q: "Git add .?", o: ["Commit", "Stage all", "Push", "Branch"], a: 1, r: "Stages everything."},
-            {q: "What is git clone?", o: ["Copy repo", "Init repo", "Push repo", "Delete repo"], a: 0, r: "Clones repo."},
-            {q: "Docker build flag?", o: ["-t", "-b", "-run", "-p"], a: 0, r: "-t is tag."},
-            {q: "CMD instruction?", o: ["Build time", "Run time default", "No usage", "File system"], a: 1, r: "Executes on start."},
-            {q: "What is a subnet?", o: ["A router", "Network division", "A file", "A port"], a: 1, r: "Network segment."},
+            {q: "Git push?", o: ["Upload", "Download", "Commit", "Branch"], a: 0, r: "Upload commits."},
+            {q: "Package Manager?", o: ["apt", "git", "docker", "nginx"], a: 0, r: "apt is Ubuntu's pkg manager."},
+            {q: "What is bash?", o: ["Shell", "File", "Image", "Container"], a: 0, r: "Bash is a shell."},
             {q: "Status 201?", o: ["Created", "Found", "Error", "Wait"], a: 0, r: "201 Created."},
             {q: "What is 0.0.0.0?", o: ["All IPs", "Localhost", "Router", "Database"], a: 0, r: "Binds to all interfaces."},
             {q: "What is chmod?", o: ["Change Mode", "Change Owner", "Change Mod", "Clear Mode"], a: 0, r: "Change file mode (perms)."},
             {q: "What is sudo?", o: ["Superuser do", "System do", "Super admin", "Root access"], a: 0, r: "Borrow root privs."},
             {q: "How to see RAM?", o: ["free", "df", "ls", "ps"], a: 0, r: "free -m."},
             {q: "What is ping?", o: ["Network test", "Database test", "Disk test", "File test"], a: 0, r: "Connectivity test."},
-            {q: "Git push?", o: ["Upload", "Download", "Commit", "Branch"], a: 0, r: "Upload commits."},
-            {q: "Package Manager?", o: ["apt", "git", "docker", "nginx"], a: 0, r: "apt is Ubuntu's pkg manager."},
-            {q: "What is bash?", o: ["Shell", "File", "Image", "Container"], a: 0, r: "Bash is a shell."}
+            {q: "What is .gitignore?", o: ["Ignore files", "Git config", "A branch", "A file"], a: 0, r: "Tells Git which files to ignore."},
+            {q: "What is a repo?", o: ["Repository", "Report", "Report file", "Run script"], a: 0, r: "Git repository."},
+            {q: "What is branch?", o: ["New line", "New file", "Parallel work", "Copy"], a: 2, r: "Parallel development line."},
+            {q: "How to merge?", o: ["git merge", "git join", "git combine", "git mix"], a: 0, r: "git merge combines code."},
+            {q: "What is HEAD?", o: ["Last commit", "First commit", "Branch", "File"], a: 0, r: "HEAD points to latest commit."}
         ];
 
-        // Fill remaining questions if needed for the full 50... 
-        // Logic already populated 50.
-        
         let userChoices = new Array(50).fill(null);
         let timeLeft = 3600;
 
